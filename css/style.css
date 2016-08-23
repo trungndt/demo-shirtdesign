@@ -1,0 +1,9 @@
+.canvas-container {
+	float: left;
+	margin-right: 30px;
+}
+
+#myCanvas {
+	border: 1px dashed #aaa;
+	
+}

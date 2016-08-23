@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <canvas id="myCanvas" width="600" height="600"></canvas>
+  <div class="control-area">
+    <h3>Clip art</h3>
+    <button onclick="addClipArt()">Clip art</button>
+    <hr>
+    <!--<button onclick="uploadImage()">Upload Image</button>-->
+    <h3>Upload your own image</h3>
+    <input type="file" id="imgLoader" />
+    <hr>
+    <h3>Add text</h3>
+    <textarea id="txt" rows="5" style="width: 500px"></textarea>
+    <br>
+    <button onclick="addText()">Add Text</button>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="vendors/fabricjs/fabric.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
