@@ -3,13 +3,20 @@ var canvas;
 function setupCanvas() {
   canvas = new fabric.Canvas('myCanvas');
   canvas.setBackgroundImage('images/tshirt.png', canvas.renderAll.bind(canvas), {
-
     scaleY: 0.5,
     scaleX: 0.5,
-
   });
+
+  canvas.on({
+    'object:added': function(e) {
+    	console.log(e);
+    	console.log(e.target.get('type'));
+    	canvas.setActiveObject(canvas.item(0));
+    }
+  });
+
   $('.canvas-container').contextmenu(function(ev) {
-  	console.log(123);
+    console.log(123);
     var pointer = canvas.getPointer(ev.originalEvent);
     var objects = canvas.getObjects();
     for (var i = objects.length - 1; i >= 0; i--) {
@@ -28,6 +35,8 @@ function setupCanvas() {
     ev.preventDefault();
     return false;
   });
+
+
 }
 
 function addClipArt() {
@@ -35,6 +44,7 @@ function addClipArt() {
     oImg.left = 100;
     oImg.top = 100;
     canvas.add(oImg);
+    $('.canvas-container').trigger('object.added');
   });
 }
 
@@ -55,6 +65,7 @@ function uploadImage() {
         });
         canvas.centerObject(image);
         canvas.add(image);
+        $('.canvas-container').trigger('object.added');
         canvas.renderAll();
       }
     }
