@@ -2,11 +2,12 @@ var canvas;
 
 function setupCanvas() {
   canvas = new fabric.Canvas('myCanvas');
-  canvas.setBackgroundImage('images/tshirt.png', canvas.renderAll.bind(canvas), {
-    scaleY: 0.5,
-    scaleX: 0.5,
-  });
-
+  // canvas.setBackgroundImage('images/tshirt.png', canvas.renderAll.bind(canvas), {
+  //   scaleY: 0.5,
+  //   scaleX: 0.5,
+  // });
+  canvas.setWidth(220);
+  canvas.setHeight(380);
   canvas.on({
     'object:added': function(e) {
     	console.log(e);

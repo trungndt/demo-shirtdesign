@@ -1,26 +1,108 @@
 <html>
 
 <head>
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
 </head>
 
 <body>
-  <canvas id="myCanvas" width="600" height="600"></canvas>
-  <div class="control-area">
-    <h3>Clip art</h3>
-    <button onclick="addClipArt()">Clip art</button>
-    <hr>
-    <!--<button onclick="uploadImage()">Upload Image</button>-->
-    <h3>Upload your own image</h3>
-    <input type="file" id="imgLoader" />
-    <hr>
-    <h3>Add text</h3>
-    <textarea id="txt" rows="5" style="width: 500px"></textarea>
-    <br>
-    <button onclick="addText()">Add Text</button>
+  <div class=""></div>
+  <div class="workbox">
+    <div class="design-area">
+      <canvas id="myCanvas" width="980" height="550"></canvas>
+      <div class="control-area" hidden>
+        <h3>Clip art</h3>
+        <button onclick="addClipArt()">Clip art</button>
+        <hr>
+        <!--<button onclick="uploadImage()">Upload Image</button>-->
+        <h3>Upload your own image</h3>
+        <input type="file" id="imgLoader" />
+        <hr>
+        <h3>Add text</h3>
+        <textarea id="txt" rows="5" style="width: 500px"></textarea>
+        <br>
+        <button onclick="addText()">Add Text</button>
+      </div>
+
+      <div class="control-box control-box-left">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#tabText" data-toggle="tab">Text</a></li>
+          <li><a href="#tabArt" data-toggle="tab">Art</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="tabText">
+            <div class="form">
+              <div class="form-group">
+                <label class="control-label">Enter text below</label>
+                <div>
+                  <input type="text" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row toolbar-action-fonts">
+                  <div class="col-xs-8">
+                    <label class="control-label">Choose a font</label>
+                    <div>
+                      <select class="form-control input-sm">
+                        <option>Arial</option>
+                        <option>Courier New</option>
+                        <option>Calibri</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-4">
+                    <div class="form-group">
+                      <label class="control-label">Color</label>
+                      <div class="list-colors">
+                        <input type="color" class="form-control input-sm">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" hidden>
+                <div class="row toolbar-action-style">
+                  <div class="col-xs-6">
+                    <label class="control-label">Style</label>
+                    <div id="text-style">
+                      <span id="text-style-i" class="btn btn-default btn-xs fa fa-italic active" data-event="click" data-label="styleI"></span>
+                      <span id="text-style-b" class="btn btn-default btn-xs fa fa-bold" data-event="click" data-label="styleB"></span>             
+                      <span id="text-style-u" class="btn btn-default btn-xs fa fa-underline" data-event="click" data-label="styleU"></span>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="control-label">Align</label>
+                    <div id="text-align">
+                      <span id="text-align-left" class="btn btn-default btn-xs fa fa-align-left" data-event="click" data-label="alignL"></span>
+                      <span id="text-align-center" class="btn btn-default btn-xs fa fa-align-center active" data-event="click" data-label="alignC"></span>
+                      <span id="text-align-right" class="btn btn-default btn-xs fa fa-align-right" data-event="click" data-label="alignR"></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="clear"></div>
+
+          </div>
+          <div class="tab-pane" id="tabArt"></div>
+        </div>
+      </div>
+
+      <div class="control-box control-box-right">
+
+      </div>
+    </div>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script src="js/jquery-1.9.1.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="vendors/fabricjs/fabric.min.js"></script>
+
   <script src="js/script.js"></script>
 </body>
 
