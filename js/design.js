@@ -8,66 +8,54 @@ TEEDESIGN.General = function() {
 
       setupCanvas();
       loadBackgroundShirt();
-      setupImageUploader();
       TEEDESIGN.Text.init();
+      TEEDESIGN.Art.init();
 
       // EVENTS
       /*
-       * event: Open file upload dialog
+       * event: 
        */
-      $('[data-action="openFileDialog"]').on('click', function() {
-        $('#imgLoader').click();
+       $('[name=rdSide]').on('change', function() {
+        storeJsonData();
+        loadBackgroundShirt();
+        loadJsonData();
       });
 
       /*
        * event: 
        */
-      $('[name=rdSide]').on('change', function() {
+       $('#panelMediaList .media').on('click', function() {
+        $('#panelMediaList .media.active').removeClass('active');
+        var $me = $(this),
+        $hidden = $('#hiddenData');
+        $me.addClass('active');
+        $hidden.attr('data-front-img', $me.attr('data-front-img'));
+        $hidden.attr('data-back-img', $me.attr('data-back-img'));
         loadBackgroundShirt();
       });
-
-      /*
-       * event: 
-       */
-      $('#panelMediaList .media').on('click', function() {
-        $('#panelMediaList .media.active').removeClass('active');
-        $(this).addClass('active');
-      });
-    });
+     });
   }
 
   var setupCanvas = function() {
     canvas = new fabric.Canvas('myCanvas');
-    canvas.setWidth(220);
+    canvas.setWidth(250);
     canvas.setHeight(380);
     canvas.on({
       'object:added': function(e) {
-        console.log(e);
-        console.log(e.target.get('type'));
         canvas.setActiveObject(canvas.item(0));
-      }
-    });
-
-    $('.canvas-container').contextmenu(function(ev) {
-      console.log(123);
-      var pointer = canvas.getPointer(ev.originalEvent);
-      var objects = canvas.getObjects();
-      for (var i = objects.length - 1; i >= 0; i--) {
-        if (objects[i].containsPoint(pointer)) {
-          canvas.setActiveObject(objects[i]);
-          break;
+      },
+      'object:selected': function(e){
+        if(TEEDESIGN.Text.isEditMode()) {
+          TEEDESIGN.Text.loadSelectedText(e.target);
+          TEEDESIGN.Text.enterEditMode();
         }
+      },
+      'selection:cleared': function() {
+        unselect();
+        TEEDESIGN.Text.leaveEditMode();
       }
-
-      if (i < 0) {
-        canvas.deactivateAll();
-      }
-
-      canvas.renderAll();
-
-      ev.preventDefault();
-      return false;
     });
+
     /*canvas.setBackgroundImage('images/tshirt.png', canvas.renderAll.bind(canvas), {
       scaleY: 0.5,
       scaleX: 0.5,
@@ -79,12 +67,268 @@ TEEDESIGN.General = function() {
    */
   var loadBackgroundShirt = function() {
     var selectedSide = $('[name=rdSide]:checked').val(), // "front" or "back"
-      imgUrl = $hiddenData.attr('data-' + selectedSide + '-img');
-    console.log(imgUrl);
+    imgUrl = $hiddenData.attr('data-' + selectedSide + '-img');
     $('.design-area').css('background-image', 'url(' + imgUrl + ')');
   }
 
-  function setupImageUploader() {
+  /*
+   * method: 
+   */
+  var addDeleteBtn = function(x, y){
+    $(".deleteBtn").remove(); 
+    var btnLeft = x-10;
+    var btnTop = y-10;
+    var deleteBtn = '<img src="https://www.funagain.com/images/old/common/delete-icon.png" class="deleteBtn" style="position:absolute;top:'+btnTop+'px;left:'+btnLeft+'px;cursor:pointer;width:20px;height:20px;"/>';
+    $('#myCanvas').append(deleteBtn);
+  }
+
+  var unselect = function() {
+    TEEDESIGN.Text.resetInputs();
+    setTimeout(function() {
+      canvas.deactivateAll().renderAll();
+    }, 50);
+  }
+
+  /*
+   * method: remove selected object
+   */
+  var removeSelectedObject = function() {
+    var activeObject = canvas.getActiveObject();
+    if (activeObject) {
+      if (confirm('Are you sure?')) {
+        canvas.remove(activeObject);
+      }
+    }
+  }
+
+  /*
+   * method: store current side's data into JSON
+   */
+  var storeJsonData = function() {
+    var $store = $('#hiddenData'),
+    currSide = $('[name="rdSide"]:not(:checked)').val();
+    $store.data(currSide, JSON.stringify(canvas));
+  }
+
+  /*
+   * method: load JSON data that belong to selected side
+   */
+  var loadJsonData = function() {
+    canvas.clear();
+    var $store = $('#hiddenData'),
+    currSide = $('[name="rdSide"]:checked').val()
+    storeData = $store.data(currSide);
+    if (storeData == undefined) {
+      storeData = '{"objects":[],"background":""}';
+    }
+    canvas.loadFromJSON(storeData);
+    unselect();
+    TEEDESIGN.Text.leaveEditMode();
+  }
+
+  var exportCanvas = function() {
+
+  }
+
+  return {
+    init: init,
+    unselect: unselect,
+    storeJsonData: storeJsonData,
+    loadJsonData: loadJsonData
+  }
+}();
+
+TEEDESIGN.Text = function() {
+  var init = function() {
+    $(document).ready(function() {
+
+      /*
+       * EVENT: click "Add Text" button to add text into canvas
+       */
+       $('[data-action=addText]').on('click', function(e) {
+        addText();
+      });
+
+      /*
+       * EVENT: press enter to add text into canvas
+       */
+       $('[name=text]').on('keypress', function(e) {
+        if (e.which == 13) {
+          $('[data-action=addText]').click();
+        }
+      });
+       
+      /*
+       * EVENT: click "Save" button to add text into canvas
+       */
+       $('[data-action=updateText]').on('click', function(e) {
+        updateText();
+      });
+
+      /*
+       * EVENT: active seleted styling button
+       */
+       $('[data-event="styling"]').on('click', function() {
+        $(this).toggleClass('active');
+      });
+     });
+  }
+
+  /*
+   * method: 
+   */
+   var resetInputs = function() {
+    $('[name="text"]').val('').blur();
+    $('#inputFontFamily').val(0);
+    $('#inputColor').val('#000000');
+    $('#text-style .btn.active').removeClass('active');
+    // $('#inputFontWeight').val('400');
+  }
+
+  /*
+   * method: 
+   */
+   var addText = function() {
+    var inputVal = $('[name=text]').val();
+    if (inputVal != '') {
+      var fontFamily = $('#inputFontFamily').val(),
+      fontWeight = $('#text-style-b').hasClass('active') ? 'bold' : 'normal',
+      fontStyle = $('#text-style-i').hasClass('active') ? 'italic' : '',
+      textDecoration = $('#text-style-u').hasClass('active') ? 'underline' : '',
+      color = $('#inputColor').val();
+      
+      var options = {
+        left: 10,
+        top: 50,
+        fill: color,
+        fontFamily: fontFamily,
+        fontWeight: fontWeight,
+        fontStyle: fontStyle,
+        textDecoration: textDecoration
+      }
+      var objText = new fabric.Text(inputVal, options);
+      canvas.add(objText);
+      // TEEDESIGN.General.unselect();
+    }
+  }
+
+  
+  /*
+   * method: 
+   */
+  var updateText = function() {
+    var inputVal = $('[name=text]').val(),
+    selectedObj = canvas.getActiveObject();
+    if (isEditMode() && inputVal != '') {
+      var fontFamily = $('#inputFontFamily').val(),
+      fontWeight = $('#text-style-b').hasClass('active') ? 'bold' : 'normal',
+      fontStyle = $('#text-style-i').hasClass('active') ? 'italic' : '',
+      textDecoration = $('#text-style-u').hasClass('active') ? 'underline' : '',
+      color = $('#inputColor').val();
+      
+      selectedObj.setText(inputVal);
+      selectedObj.setFontFamily(fontFamily);
+      selectedObj.setFill(color);
+      selectedObj.setFontWeight(fontWeight);
+      selectedObj.setFontStyle(fontStyle);
+      selectedObj.setTextDecoration(textDecoration);
+      canvas.renderAll();
+    }
+  }
+
+
+  /*
+   * method: load selected text's attribute into control box
+   */
+  var loadSelectedText = function(selectedObj) {
+    console.log('loadSelectedText');
+    // Text
+    $('[name="text"]').val(selectedObj.getText());
+    // Font family
+    $('#inputFontFamily').val(selectedObj.getFontFamily());
+    // Color
+    $('#inputColor').val(selectedObj.getFill());
+    // Style: Bold
+    if (selectedObj.getFontWeight() == 'bold') {
+      $('#text-style-b').addClass('active')
+    }
+    // Style: Italic
+    if (selectedObj.getFontStyle() == 'italic') {
+      $('#text-style-i').addClass('active')
+    }
+    // Style: Underline
+    if (selectedObj.getTextDecoration() == 'underline') {
+      $('#text-style-u').addClass('active')
+    }
+  }
+
+  /*
+   * method: check wheter a TEXT is selected
+   */
+  var isEditMode = function() {
+    var obj = canvas.getActiveObject(),
+    flag = false;
+    if (obj != null && obj != undefined) {
+      if (obj.get('type') == 'text')
+        flag = true;
+    }
+    return flag;
+  }
+
+  var enterEditMode = function() {
+    $('[data-action="addText"]').hide();
+    $('[data-action="updateText"]').show();
+  }
+
+  var leaveEditMode = function() {
+    $('[data-action="addText"]').show();
+    $('[data-action="updateText"]').hide();
+  }
+
+  return {
+    init: init,
+    resetInputs: resetInputs,
+    loadSelectedText: loadSelectedText,
+    isEditMode: isEditMode,
+    enterEditMode: enterEditMode,
+    leaveEditMode: leaveEditMode
+  }
+}();
+
+TEEDESIGN.Art = function() {
+  var init = function() {
+    $(document).ready(function() {
+      setupImageUploader();
+
+      $('.art-item').on('click', function() {
+        $('#modalArtwork').modal('hide');
+        var imgUrl = $(this).find('img').attr('src');
+        addClipArt(imgUrl);
+      });
+      /*
+       * event: Open file upload dialog
+       */
+       $('[data-action="openFileDialog"]').on('click', function() {
+        $('#imgLoader').click();
+      });
+
+     });
+  }
+
+  var addClipArt = function(imgUrl) {
+    fabric.Image.fromURL(imgUrl, function(oImg) {
+      oImg.left = 10;
+      oImg.top = 30;
+      canvas.add(oImg);
+      $('.canvas-container').trigger('object.added');
+      canvas.deactivateAll().renderAll();
+    });
+  }
+
+  /*
+   * method: setup event that allow uploading an image from PC
+   */
+   var setupImageUploader = function() {
     document.getElementById('imgLoader').onchange = function handleImage(e) {
       var reader = new FileReader();
       reader.onload = function(event) {
@@ -96,8 +340,6 @@ TEEDESIGN.General = function() {
             angle: 0,
             padding: 10,
             cornersize: 10,
-            // height: 110,
-            // width: 110,
           });
           canvas.centerObject(image);
           canvas.add(image);
@@ -110,75 +352,8 @@ TEEDESIGN.General = function() {
   }
 
   return {
-    canvas: canvas,
     init: init
   }
 }();
-
-TEEDESIGN.Text = function() {
-  var init = function() {
-    $(document).ready(function() {
-
-      /*
-       * EVENT: press enter to add text into canvas
-       */
-      $('[name=text]').on('keypress', function(e) {
-        var inputVal = $(this).val();
-        if (e.which == 13 && inputVal != '') {
-          addText(inputVal);
-          $(this).val('').blur();
-        }
-      });
-
-      /*
-       * EVENT: active seleted styling button
-       */
-      $('[data-event="styling"]').on('click', function() {
-        var $me = $(this);
-        if ($me.hasClass('active')) {
-          $me.removeClass('active');
-        } else {
-          $me.siblings('.active').removeClass('active');
-          $me.addClass('active');
-        }
-      });
-    });
-  }
-
-  var addText = function(inputVal) {
-    var fontFamily = $('#inputFontFamily').val(),
-      color = $('#inputColor').val(),
-      options = {
-        left: 10,
-        top: 50,
-        fill: color,
-        fontFamily: fontFamily
-      };
-    var $activeStyle = $('#text-style .btn.active');
-    if ($activeStyle.length) {
-      var val = $activeStyle.attr('data-value');
-      switch (val) {
-        case 'styleB': break;
-        case 'styleI': break;
-        case 'styleU': break;
-      }
-    }
-    var objText = new fabric.Text(inputVal, options);
-    canvas.add(objText);
-  }
-
-  return {
-    init: init
-  }
-}();
-
-function addClipArt() {
-  fabric.Image.fromURL('images/clipart/charizard.png', function(oImg) {
-    oImg.left = 100;
-    oImg.top = 100;
-    canvas.add(oImg);
-    $('.canvas-container').trigger('object.added');
-  });
-}
 
 TEEDESIGN.General.init();

@@ -17,6 +17,10 @@ input:focus {
 	outline: none;
 }
 
+.btn {
+	border-radius: 0 !important;
+}
+
 .workbox {
 	width: 980px;
 	margin: 30px auto;
@@ -106,7 +110,6 @@ input:focus {
 		width: 100%;
 		.btn {
 			width: 50%;
-			border-radius: 0 !important;
 		}
 	}
 }
@@ -180,5 +183,16 @@ input:focus {
 	&.active {
 		background-color: lighten($color-primary-light, 5%);
 		// border-color: $color-primary;
+	}
+}
+
+.art-item {
+	cursor: pointer;
+	border: 2px solid $color-default;
+	.img-container {
+		padding: 10px;
+	}
+	&:hover {
+		border-color: $color-primary;
 	}
 }

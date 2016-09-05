@@ -11,6 +11,9 @@ ul {
 input:focus {
   outline: none; }
 
+.btn {
+  border-radius: 0 !important; }
+
 .workbox {
   width: 980px;
   margin: 30px auto;
@@ -77,12 +80,15 @@ input:focus {
 .control-box .btn-group {
   width: 100%; }
   .control-box .btn-group .btn {
-    width: 50%;
-    border-radius: 0 !important; }
+    width: 50%; }
 
 /* Form */
 .form-control {
   border-radius: 0; }
+  .form-control #inputColor {
+    box-sizing: border-box;
+    padding: 0 2px;
+    cursor: pointer; }
 
 .control-label {
   font-size: 11px; }
@@ -127,5 +133,13 @@ input:focus {
     font-size: 11px; }
   .media:hover, .media.active {
     background-color: #d5eceb; }
+
+.art-item {
+  cursor: pointer;
+  border: 2px solid #f3f5f6; }
+  .art-item .img-container {
+    padding: 10px; }
+  .art-item:hover {
+    border-color: #91c9c6; }
 
 /*# sourceMappingURL=style.css.map */
