@@ -47,7 +47,7 @@
                 <div class="form-group">
                   <label class="control-label">Enter text below</label>
                   <div>
-                    <input type="text" class="form-control input-sm"/>
+                    <input type="text" class="form-control input-sm" name="text"/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -55,10 +55,10 @@
                     <div class="col-xs-8">
                       <label class="control-label">Choose a font</label>
                       <div>
-                        <select class="form-control input-sm">
-                          <option>Arial</option>
-                          <option>Courier New</option>
-                          <option>Calibri</option>
+                        <select class="form-control input-sm" id="inputFontFamily">
+                          <option value="Arial">Arial</option>
+                          <option value="Courier New">Courier New</option>
+                          <option value="Calibri">Calibri</option>
                         </select>
                       </div>
                     </div>
@@ -66,7 +66,7 @@
                       <div class="form-group">
                         <label class="control-label">Color</label>
                         <div class="list-colors">
-                          <input type="color" class="form-control input-sm">
+                          <input type="color" class="form-control input-sm" id="inputColor">
                         </div>
                       </div>
                     </div>
@@ -77,17 +77,17 @@
                     <div class="col-xs-6">
                       <label class="control-label">Style</label>
                       <div id="text-style">
-                        <span id="text-style-i" class="btn btn-default btn-xs fa fa-italic active" data-event="click" data-label="styleI"></span>
-                        <span id="text-style-b" class="btn btn-default btn-xs fa fa-bold" data-event="click" data-label="styleB"></span>             
-                        <span id="text-style-u" class="btn btn-default btn-xs fa fa-underline" data-event="click" data-label="styleU"></span>
+                        <span id="text-style-b" class="btn btn-default btn-xs fa fa-bold" data-event="styling" data-value="styleB"></span>   
+                        <span id="text-style-i" class="btn btn-default btn-xs fa fa-italic" data-event="styling" data-value="styleI"></span>          
+                        <span id="text-style-u" class="btn btn-default btn-xs fa fa-underline" data-event="styling" data-value="styleU"></span>
                       </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-6" hidden>
                       <label class="control-label">Align</label>
                       <div id="text-align">
-                        <span id="text-align-left" class="btn btn-default btn-xs fa fa-align-left" data-event="click" data-label="alignL"></span>
-                        <span id="text-align-center" class="btn btn-default btn-xs fa fa-align-center active" data-event="click" data-label="alignC"></span>
-                        <span id="text-align-right" class="btn btn-default btn-xs fa fa-align-right" data-event="click" data-label="alignR"></span>
+                        <span id="text-align-left" class="btn btn-default btn-xs fa fa-align-left active" data-event="styling" data-value="alignL"></span>
+                        <span id="text-align-center" class="btn btn-default btn-xs fa fa-align-center" data-event="styling" data-value="alignC"></span>
+                        <span id="text-align-right" class="btn btn-default btn-xs fa fa-align-right" data-event="styling" data-value="alignR"></span>
                       </div>
                     </div>
                   </div>

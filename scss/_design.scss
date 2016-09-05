@@ -94,7 +94,6 @@ input:focus {
 	}
 }
 
-
 .control-box {
 	.panel-heading {
 		padding: 0;
@@ -114,6 +113,12 @@ input:focus {
 /* Form */
 .form-control {
 	border-radius: 0;
+
+	#inputColor {
+		box-sizing: border-box;
+    padding: 0 2px;
+    cursor: pointer;
+	}
 }
 .control-label {
 	font-size: 11px;

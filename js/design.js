@@ -1,8 +1,7 @@
 TEEDESIGN = window.TEEDESIGN || {};
-
+var canvas;
 TEEDESIGN.General = function() {
-  var canvas,
-  $hiddenData;
+  var $hiddenData;
   var init = function() {
     $(document).ready(function() {
       $hiddenData = $('#hiddenData');
@@ -10,30 +9,31 @@ TEEDESIGN.General = function() {
       setupCanvas();
       loadBackgroundShirt();
       setupImageUploader();
-      
+      TEEDESIGN.Text.init();
+
       // EVENTS
       /*
        * event: Open file upload dialog
        */
-       $('[data-action="openFileDialog"]').on('click', function() {
+      $('[data-action="openFileDialog"]').on('click', function() {
         $('#imgLoader').click();
       });
 
       /*
        * event: 
        */
-       $('[name=rdSide]').on('change', function() {
+      $('[name=rdSide]').on('change', function() {
         loadBackgroundShirt();
       });
 
       /*
        * event: 
        */
-       $('#panelMediaList .media').on('click', function() {
+      $('#panelMediaList .media').on('click', function() {
         $('#panelMediaList .media.active').removeClass('active');
         $(this).addClass('active');
       });
-     });
+    });
   }
 
   var setupCanvas = function() {
@@ -79,7 +79,7 @@ TEEDESIGN.General = function() {
    */
   var loadBackgroundShirt = function() {
     var selectedSide = $('[name=rdSide]:checked').val(), // "front" or "back"
-    imgUrl = $hiddenData.attr('data-' + selectedSide + '-img');
+      imgUrl = $hiddenData.attr('data-' + selectedSide + '-img');
     console.log(imgUrl);
     $('.design-area').css('background-image', 'url(' + imgUrl + ')');
   }
@@ -110,6 +110,64 @@ TEEDESIGN.General = function() {
   }
 
   return {
+    canvas: canvas,
+    init: init
+  }
+}();
+
+TEEDESIGN.Text = function() {
+  var init = function() {
+    $(document).ready(function() {
+
+      /*
+       * EVENT: press enter to add text into canvas
+       */
+      $('[name=text]').on('keypress', function(e) {
+        var inputVal = $(this).val();
+        if (e.which == 13 && inputVal != '') {
+          addText(inputVal);
+          $(this).val('').blur();
+        }
+      });
+
+      /*
+       * EVENT: active seleted styling button
+       */
+      $('[data-event="styling"]').on('click', function() {
+        var $me = $(this);
+        if ($me.hasClass('active')) {
+          $me.removeClass('active');
+        } else {
+          $me.siblings('.active').removeClass('active');
+          $me.addClass('active');
+        }
+      });
+    });
+  }
+
+  var addText = function(inputVal) {
+    var fontFamily = $('#inputFontFamily').val(),
+      color = $('#inputColor').val(),
+      options = {
+        left: 10,
+        top: 50,
+        fill: color,
+        fontFamily: fontFamily
+      };
+    var $activeStyle = $('#text-style .btn.active');
+    if ($activeStyle.length) {
+      var val = $activeStyle.attr('data-value');
+      switch (val) {
+        case 'styleB': break;
+        case 'styleI': break;
+        case 'styleU': break;
+      }
+    }
+    var objText = new fabric.Text(inputVal, options);
+    canvas.add(objText);
+  }
+
+  return {
     init: init
   }
 }();
@@ -121,19 +179,6 @@ function addClipArt() {
     canvas.add(oImg);
     $('.canvas-container').trigger('object.added');
   });
-}
-
-function addText() {
-  var str = document.getElementById('txt').value;
-  if (str != '') {
-    var text = new fabric.Text(str, {
-      left: 150,
-      top: 150,
-      fontFamily: 'Comic Sans'
-    });
-    canvas.add(text);
-    document.getElementById('txt').value = '';
-  }
 }
 
 TEEDESIGN.General.init();
