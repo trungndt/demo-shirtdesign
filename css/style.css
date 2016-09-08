@@ -320,23 +320,75 @@ input:focus {
 .btn {
   border-radius: 0 !important; }
 
+.button, input.button,
+.btn-theme-primary {
+  background-color: #91c9c6;
+  border-color: #91c9c6; }
+  .button:before, .button:hover, input.button:before, input.button:hover,
+  .btn-theme-primary:before,
+  .btn-theme-primary:hover {
+    background-color: #40817e; }
+  .button:hover, input.button:hover,
+  .btn-theme-primary:hover {
+    -webkit-box-shadow: 0 0 0 30px #40817e inset;
+    -moz-box-shadow: 0 0 0 30px #40817e inset;
+    -ms-box-shadow: 0 0 0 30px #40817e inset;
+    -o-box-shadow: 0 0 0 30px #40817e inset;
+    box-shadow: 0 0 0 30px #40817e inset; }
+
+.product-block:hover .cart input {
+  -webkit-box-shadow: 0 0 0 30px #40817e inset;
+  -moz-box-shadow: 0 0 0 30px #40817e inset;
+  -ms-box-shadow: 0 0 0 30px #40817e inset;
+  -o-box-shadow: 0 0 0 30px #40817e inset;
+  box-shadow: 0 0 0 30px #40817e inset; }
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
+.paginations .links a:hover {
+  background-color: #91c9c6;
+  border-color: #91c9c6; }
+  .pagination > .active > a:before, .pagination > .active > a:hover,
+  .pagination > .active > span:before,
+  .pagination > .active > span:hover,
+  .pagination > .active > a:hover:before,
+  .pagination > .active > a:hover:hover,
+  .pagination > .active > span:hover:before,
+  .pagination > .active > span:hover:hover,
+  .pagination > .active > a:focus:before,
+  .pagination > .active > a:focus:hover,
+  .pagination > .active > span:focus:before,
+  .pagination > .active > span:focus:hover,
+  .paginations .links a:hover:before,
+  .paginations .links a:hover:hover {
+    background-color: #40817e; }
+
 #header {
   background-color: transparent; }
+
+#topbar {
+  background-color: #80c1bd; }
+  #topbar ul li a {
+    color: #fff; }
 
 #header-main .header-wrap > div {
   height: auto; }
 #header-main #logo-theme {
   color: #fff;
-  padding: 30px 0;
+  padding: 30px 0 0;
   text-align: center; }
   #header-main #logo-theme a {
     background: none;
     width: auto;
     height: auto;
-    display: inline-block;
-    margin-bottom: 15px; }
+    display: inline-block; }
   #header-main #logo-theme h1 {
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    font-size: 30px; }
 
 #pav-mainnav {
   margin-bottom: 30px; }
@@ -356,8 +408,10 @@ input:focus {
     -ms-flex: 1;
     flex: 1; }
     #pav-mainnav .navbar ul.nav > li > a {
-      color: #50a49f;
-      text-align: center; }
+      color: #40817e;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600; }
       #pav-mainnav .navbar ul.nav > li > a:before {
         background-color: #91c9c6; }
     #pav-mainnav .navbar ul.nav > li a:hover, #pav-mainnav .navbar ul.nav > li a:active, #pav-mainnav .navbar ul.nav > li a:focus, #pav-mainnav .navbar ul.nav > li.active a {
@@ -370,31 +424,35 @@ input:focus {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px; }
 
+#content h1:after {
+  border-color: #91c9c6; }
+
 .box {
   background-color: #fff;
   padding: 50px; }
+
+.form-group {
+  margin-right: 0; }
 
 @media (min-width: 768px) {
   .navbar-header {
     width: 100%; }
 
   .navbar-nav > li > a {
-    padding-top: 13px;
-    padding-bottom: 13px; } }
+    padding-top: 10px;
+    padding-bottom: 10px; } }
 @media (min-width: 992px) {
   .container {
     width: 1100px; } }
 .workbox {
-  margin: 30px auto;
-  background-color: whitesmoke;
-  box-shadow: 0px 0px 5px #777; }
+  background-color: whitesmoke; }
 
 .design-area {
   height: 550px;
   background-position: center;
   background-size: auto 100%;
   background-repeat: no-repeat;
-  padding-top: 100px;
+  padding-top: 10%;
   box-sizing: border-box;
   position: relative;
   overflow: hidden; }
@@ -509,5 +567,35 @@ input:focus {
     padding: 10px; }
   .art-item:hover {
     border-color: #91c9c6; }
+
+.shirt-preview {
+  position: relative; }
+  .shirt-preview .img-container.object {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 10%;
+    text-align: center; }
+    .shirt-preview .img-container.object img {
+      height: 100%;
+      width: auto; }
+
+.brief td {
+  padding: 5px 10px; }
+
+@media screen and (min-width: 768px) {
+  .modal-dialog {
+    left: 0; } }
+.product-block .wishlist {
+  width: 100%; }
+  .product-block .wishlist a:hover {
+    -webkit-box-shadow: 0 0 0 30px #40817e inset;
+    -moz-box-shadow: 0 0 0 30px #40817e inset;
+    -ms-box-shadow: 0 0 0 30px #40817e inset;
+    -o-box-shadow: 0 0 0 30px #40817e inset;
+    box-shadow: 0 0 0 30px #40817e inset; }
+  .product-block .wishlist a span {
+    display: block; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,7 +1,5 @@
 .workbox {
-	margin: 30px auto;
 	background-color: whitesmoke;
-	box-shadow: 0px 0px 5px #777;
 }
 
 .design-area {
@@ -10,7 +8,7 @@
 	background-position: center;
 	background-size: auto 100%;
 	background-repeat: no-repeat;
-	padding-top: 100px;
+	padding-top: 10%;
 	box-sizing: border-box;
 	position: relative;
 	overflow: hidden;
@@ -94,8 +92,8 @@
 
 	#inputColor {
 		box-sizing: border-box;
-    padding: 0 2px;
-    cursor: pointer;
+		padding: 0 2px;
+		cursor: pointer;
 	}
 }
 .control-label {
@@ -169,5 +167,31 @@
 	}
 	&:hover {
 		border-color: $color-primary;
+	}
+}
+
+.shirt-preview {
+	position: relative;
+	.img-container.object {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		padding-top: 10%;
+		text-align: center;
+		img {
+			height: 100%;
+			width: auto;
+		}
+	}
+}
+
+.brief td {
+	padding: 5px 10px;
+}
+
+@media screen and (min-width: 768px) {
+	.modal-dialog {
+		left: 0;
 	}
 }

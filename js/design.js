@@ -15,7 +15,7 @@ TEEDESIGN.General = function() {
       /*
        * event: 
        */
-       $('[name=rdSide]').on('change', function() {
+       $(document).on('change', '[name=rdSide]', function() {
         storeJsonData();
         loadBackgroundShirt();
         loadJsonData();
@@ -32,6 +32,14 @@ TEEDESIGN.General = function() {
         $hidden.attr('data-front-img', $me.attr('data-front-img'));
         $hidden.attr('data-back-img', $me.attr('data-back-img'));
         loadBackgroundShirt();
+      });
+
+       $('#btnSell').on('click', function() {
+        $('#modalPreview').modal('show');
+      });
+
+       $('#modalPreview').on('shown.bs.modal', function (e) {
+        exportCanvas();
       });
      });
   }
@@ -65,7 +73,7 @@ TEEDESIGN.General = function() {
   /*
    * method: load background shirt based on which side is chosen
    */
-  var loadBackgroundShirt = function() {
+   var loadBackgroundShirt = function() {
     var selectedSide = $('[name=rdSide]:checked').val(), // "front" or "back"
     imgUrl = $hiddenData.attr('data-' + selectedSide + '-img');
     $('.design-area').css('background-image', 'url(' + imgUrl + ')');
@@ -74,7 +82,7 @@ TEEDESIGN.General = function() {
   /*
    * method: 
    */
-  var addDeleteBtn = function(x, y){
+   var addDeleteBtn = function(x, y){
     $(".deleteBtn").remove(); 
     var btnLeft = x-10;
     var btnTop = y-10;
@@ -92,7 +100,7 @@ TEEDESIGN.General = function() {
   /*
    * method: remove selected object
    */
-  var removeSelectedObject = function() {
+   var removeSelectedObject = function() {
     var activeObject = canvas.getActiveObject();
     if (activeObject) {
       if (confirm('Are you sure?')) {
@@ -104,7 +112,7 @@ TEEDESIGN.General = function() {
   /*
    * method: store current side's data into JSON
    */
-  var storeJsonData = function() {
+   var storeJsonData = function() {
     var $store = $('#hiddenData'),
     currSide = $('[name="rdSide"]:not(:checked)').val();
     $store.data(currSide, JSON.stringify(canvas));
@@ -113,7 +121,7 @@ TEEDESIGN.General = function() {
   /*
    * method: load JSON data that belong to selected side
    */
-  var loadJsonData = function() {
+   var loadJsonData = function() {
     canvas.clear();
     var $store = $('#hiddenData'),
     currSide = $('[name="rdSide"]:checked').val()
@@ -127,14 +135,49 @@ TEEDESIGN.General = function() {
   }
 
   var exportCanvas = function() {
+    var $store = $('#hiddenData'),
+    $sides = $('[name="rdSide"]'),
+    $modal = $('#modalPreview'),
+    canvasExportData = {};
+    // $modal.modal('show');
+    $.each($sides, function(i,e) {
+      $(e).click();
+      var currSide = $('[name="rdSide"]:checked').val();
+      $store.data(currSide, JSON.stringify(canvas)); // store data
+      loadJsonData();
 
+      canvasExportData[currSide] = {
+        tshirt: $store.attr('data-' + currSide + '-img'),
+        object: canvas.deactivateAll().renderAll().toDataURL('png')
+      }
+
+      var $previewBox = $modal.find('.shirt-preview').filter('[data-side="' + currSide + '"]');
+      $previewBox.find('.tshirt > img').attr('src', canvasExportData[currSide].tshirt);
+      $previewBox.find('.object > img').attr('crossOrigin', 'anonymous');
+      $previewBox.find('.object > img').attr('src', canvasExportData[currSide].object);
+      // window.open(canvasExportData[currSide].object);
+      // var img = new Image();
+      // img.setAttribute('crossOrigin', 'anonymous');
+      // img.src = canvas.deactivateAll().renderAll().toDataURL('png');
+      // console.log(img);
+
+      // Calculate object size
+      var bgHeight = $previewBox.width(),
+      pTop = 2/11 * bgHeight,
+      imgHeight = 38/55 * bgHeight;
+      console.log(bgHeight);
+      $previewBox.find('.object').css('margin-top', pTop).css('height', imgHeight);
+    });
+    // sessionStorage['canvasPng'] = canvasPng;
+    $('[name="rdSide"]').eq(0).click();
   }
 
   return {
     init: init,
     unselect: unselect,
     storeJsonData: storeJsonData,
-    loadJsonData: loadJsonData
+    loadJsonData: loadJsonData,
+    exportCanvas: exportCanvas
   }
 }();
 
@@ -216,7 +259,7 @@ TEEDESIGN.Text = function() {
   /*
    * method: 
    */
-  var updateText = function() {
+   var updateText = function() {
     var inputVal = $('[name=text]').val(),
     selectedObj = canvas.getActiveObject();
     if (isEditMode() && inputVal != '') {
@@ -240,7 +283,7 @@ TEEDESIGN.Text = function() {
   /*
    * method: load selected text's attribute into control box
    */
-  var loadSelectedText = function(selectedObj) {
+   var loadSelectedText = function(selectedObj) {
     console.log('loadSelectedText');
     // Text
     $('[name="text"]').val(selectedObj.getText());
@@ -265,7 +308,7 @@ TEEDESIGN.Text = function() {
   /*
    * method: check wheter a TEXT is selected
    */
-  var isEditMode = function() {
+   var isEditMode = function() {
     var obj = canvas.getActiveObject(),
     flag = false;
     if (obj != null && obj != undefined) {
@@ -316,6 +359,17 @@ TEEDESIGN.Art = function() {
   }
 
   var addClipArt = function(imgUrl) {
+    // fabric.util.loadImage(imgUrl, function(img) {
+    //   var object = new fabric.Image(img);
+    //   object.set({ 
+    //     left: 10, 
+    //     top: 30
+    //   });
+    //   object.hasRotatingPoint = true;
+    //   canvas.add(object);
+    //   canvas.renderAll();    
+    // }, null, {crossOrigin: 'Anonymous'});
+
     fabric.Image.fromURL(imgUrl, function(oImg) {
       oImg.left = 10;
       oImg.top = 30;

@@ -1,0 +1,11 @@
+.product-block .wishlist {
+	width: 100%;
+	a {
+		&:hover {
+			@include boxPrimary;
+		}
+		span {
+			display: block;
+		}
+	}
+}

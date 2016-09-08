@@ -22,8 +22,36 @@ input:focus {
   border-radius: 0 !important;
 }
 
+.button, input.button,
+.btn-theme-primary {
+  @include buttonPrimary;
+  &:hover {
+    @include boxPrimary;
+  }
+}
+
+.product-block:hover .cart input {
+  @include boxPrimary;
+}
+
+.pagination > .active > a, 
+.pagination > .active > span, 
+.pagination > .active > a:hover, 
+.pagination > .active > span:hover, 
+.pagination > .active > a:focus, 
+.pagination > .active > span:focus,
+.paginations .links a:hover {
+  @include buttonPrimary;
+}
+
 #header {
   background-color: transparent;
+}
+#topbar {
+  background-color: darken($color-primary, 5%);
+  ul li a {
+    color: $color-inverse;
+  }
 }
 
 #header-main {
@@ -32,17 +60,17 @@ input:focus {
   }
   #logo-theme {
     color: $color-inverse;
-    padding: 30px 0;
+    padding: 30px 0 0;
     text-align: center;
     a {
       background: none;
       width: auto;
       height: auto;
       display: inline-block;
-      margin-bottom: 15px;
     }
     h1 {
       margin-bottom: 15px;
+      font-size: 30px;
     }
   }
 }
@@ -70,6 +98,8 @@ input:focus {
     & > a {
       color: $color-primary-darker;
       text-align: center;
+      font-size: 12px;
+      font-weight: 600;
       &:before {
         background-color: $color-primary;
       }
@@ -92,9 +122,17 @@ input:focus {
   }
 }
 
+#content h1:after {
+  border-color: $color-primary;
+}
+
 .box {
   background-color: $color-inverse;
   padding: 50px;
+}
+
+.form-group {
+  margin-right: 0;
 }
 
 @media (min-width: 768px) {
@@ -102,8 +140,8 @@ input:focus {
     width: 100%;
   }
   .navbar-nav > li > a {
-    padding-top: 13px;
-    padding-bottom: 13px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 @media (min-width: 992px) {

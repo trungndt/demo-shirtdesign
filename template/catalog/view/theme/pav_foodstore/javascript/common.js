@@ -71,16 +71,16 @@ $(document).ready( function (){
 } );
 
 $(document).ready(function() {
-	$('.product-zoom').magnificPopup({
-		  type: 'image',
-          closeOnContentClick: true,
+	// $('.product-zoom').magnificPopup({
+	// 	  type: 'image',
+ //          closeOnContentClick: true,
  
-          image: {
-            verticalFit: true
-          }
-	});
+ //          image: {
+ //            verticalFit: true
+ //          }
+	// });
 
-	$('.iframe-link').magnificPopup({type:'iframe'});
+	// $('.iframe-link').magnificPopup({type:'iframe'});
 });
 
 
@@ -163,23 +163,23 @@ $(document).ready(function(){
         });
     });
 
-    $('.popup-with-form').magnificPopup({
-          type: 'inline',
-          preloader: false,
-          focus: '#input-name',
+    // $('.popup-with-form').magnificPopup({
+    //       type: 'inline',
+    //       preloader: false,
+    //       focus: '#input-name',
 
-          // When elemened is focused, some mobile browsers in some cases zoom in
-          // It looks not nice, so we disable it:
-          callbacks: {
-            beforeOpen: function() {
-              if($(window).width() < 700) {
-                this.st.focus = false;
-              } else {
-                this.st.focus = '#input-name';
-              }
-            }
-          }
-    });
+    //       // When elemened is focused, some mobile browsers in some cases zoom in
+    //       // It looks not nice, so we disable it:
+    //       callbacks: {
+    //         beforeOpen: function() {
+    //           if($(window).width() < 700) {
+    //             this.st.focus = false;
+    //           } else {
+    //             this.st.focus = '#input-name';
+    //           }
+    //         }
+    //       }
+    // });
     
 });
 

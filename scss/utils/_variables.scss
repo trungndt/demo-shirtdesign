@@ -22,7 +22,7 @@ $color-info: $lightCyan;
 $color-warning: $yellow;
 $color-danger: $red;
 
-$color-primary-darker: darken($color-primary, 20%);
+$color-primary-darker: darken($color-primary, 30%);
 $color-default-darker: darken($color-default, 5%);
 $color-lightGray-darker: darken($lightGray, 10%);
 
@@ -31,3 +31,16 @@ $color-primary-light: #c4e4e2;
 $font-size: 14px;
 
 $radius: 5px;
+
+@mixin buttonPrimary() {
+	background-color: $color-primary;
+	border-color: $color-primary;
+	&:before,
+	&:hover {
+		background-color: $color-primary-darker;
+	}
+}
+
+@mixin boxPrimary() {
+	@include prefix(box-shadow, 0 0 0 30px $color-primary-darker inset);
+}
