@@ -1,0 +1,33 @@
+// Color set
+$white: #fff;
+$lightGray: #f3f5f6;
+$gray: #acacac;
+$black: #3c3c3c;
+$green: #159867;
+$blue: #29a1d4;
+$red: #f26d7d;
+$brown: #998675;
+$yellow: #edb016;
+$orange: #FF5F21;
+$lime: #8eaf3e;
+$cyan: #91c9c6;
+$lightCyan: #c4e4e2;
+
+$color-foreground: $black;
+$color-inverse: $white;
+$color-default: $lightGray;
+$color-primary: $cyan;
+$color-success: $blue;
+$color-info: $lightCyan;
+$color-warning: $yellow;
+$color-danger: $red;
+
+$color-primary-darker: darken($color-primary, 20%);
+$color-default-darker: darken($color-default, 5%);
+$color-lightGray-darker: darken($lightGray, 10%);
+
+$color-primary-light: #c4e4e2;
+// Font
+$font-size: 14px;
+
+$radius: 5px;

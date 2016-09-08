@@ -1,0 +1,218 @@
+<html>
+
+<head>
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/theme.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class=""></div>
+  <div class="workbox">
+    <div class="design-area">
+      <input type="hidden" id="hiddenData" data-front-img="images/mockup-front.png" data-back-img="images/mockup-back.png" />
+      <canvas id="myCanvas" width="980" height="550"></canvas>
+      
+      <div class="control-box control-box-left panel">
+        <div class="panel-heading">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#tabText" data-toggle="tab">Text</a></li>
+            <li><a href="#tabArt" data-toggle="tab">Art</a></li>
+          </ul>
+        </div>
+        <div class="panel-body">
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="tabText">
+              <div class="form">
+                <div class="form-group">
+                  <label class="control-label">Enter text below</label>
+                  <div>
+                    <input type="text" class="form-control input-sm" name="text" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row toolbar-action-fonts">
+                    <div class="col-xs-8">
+                      <label class="control-label">Choose a font</label>
+                      <div>
+                        <select class="form-control input-sm" id="inputFontFamily">
+                          <option value="Arial">Arial</option>
+                          <option value="Courier New">Courier New</option>
+                          <option value="Calibri">Calibri</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <label class="control-label">Color</label>
+                        <div class="list-colors">
+                          <input type="color" class="form-control input-sm" id="inputColor">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <label class="control-label">Style</label>
+                      <div id="text-style" class="toolbar-action-style">
+                        <span id="text-style-b" class="btn btn-default btn-xs fa fa-bold" data-event="styling" data-value="styleB"></span>
+                        <span id="text-style-i" class="btn btn-default btn-xs fa fa-italic" data-event="styling" data-value="styleI"></span>
+                        <span id="text-style-u" class="btn btn-default btn-xs fa fa-underline" data-event="styling" data-value="styleU"></span>
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <br>
+                    </div>
+                    <div class="col-xs-6" hidden>
+                      <label class="control-label">Align</label>
+                      <div id="text-align">
+                        <span id="text-align-left" class="btn btn-default btn-xs fa fa-align-left active" data-event="styling" data-value="alignL"></span>
+                        <span id="text-align-center" class="btn btn-default btn-xs fa fa-align-center" data-event="styling" data-value="alignC"></span>
+                        <span id="text-align-right" class="btn btn-default btn-xs fa fa-align-right" data-event="styling" data-value="alignR"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn btn-info btn-sm btn-block" type="text" data-action="addText">Add Text</button>
+                  <button class="btn btn-success btn-sm btn-block" type="text" data-action="updateText" style="display: none">
+                    Save
+                  </button>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="tab-pane" id="tabArt">
+              <br>
+              <button class="btn btn-info btn-block" type="button" data-toggle="modal" data-target="#modalArtwork">Browse Artwork</button>
+              <br>
+              <div class="text-center">Or</div>
+              <br>
+              <button class="btn btn-info btn-block" type="button" data-action="openFileDialog">Upload your own</button>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="control-box control-box-right panel" id="panelMediaList">
+        <div class="panel-body">
+          <div class="form">
+            <div class="form-group">
+              <label class="control-label">Style - Design</label>
+              <div>
+                <select class="form-control input-sm">
+                  <option>Basic Tees</option>
+                </select>
+              </div>
+              <div class="media-list">
+                <div class="media active" data-front-img="images/mockup-front.png" data-back-img="images/mockup-back.png">
+                  <h6 class="media-heading">Basic White</h4>
+                    <div class="media-left">
+                      <div class="media-side">
+                        <img class="media-object" src="images/mockup-front.png" alt="...">
+                      </div>
+                    </div>
+                    <div class="media-body">
+                      <div>Budget friendly</div>
+                      <div>S - 5XL</div>
+                    </div>
+                  </div>
+                  <div class="media" data-front-img="images/black-mockup-front.png" data-back-img="images/black-mockup-back.png">
+                    <h6 class="media-heading">Basic Black</h4>
+                      <div class="media-left">
+                        <div class="media-side">
+                          <img class="media-object" src="images/black-mockup-front.png" alt="...">
+                        </div>
+                      </div>
+                      <div class="media-body">
+                        <div>Budget friendly</div>
+                        <div>S - 5XL</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Side</label>
+                  <div>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-info btn-sm active">
+                        <input type="radio" name="rdSide" value="front" checked> Front
+                      </label>
+                      <label class="btn btn-info btn-sm">
+                        <input type="radio" name="rdSide" value="back"> Back
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalArtwork" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Artwork</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="ratio-wrapper ratio-wrapper-1-1">
+                  <div class="ratio-item art-item">
+                    <div class="img-container">
+                      <img class="img-responsive" src="images/clipart/blastoise.png"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="ratio-wrapper ratio-wrapper-1-1">
+                  <div class="ratio-item art-item">
+                    <div class="img-container">
+                      <img class="img-responsive" src="images/clipart/bulbasaur.png"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="ratio-wrapper ratio-wrapper-1-1">
+                  <div class="ratio-item art-item">
+                    <div class="img-container">
+                      <img class="img-responsive" src="images/clipart/charizard.png"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="ratio-wrapper ratio-wrapper-1-1">
+                  <div class="ratio-item art-item">
+                    <div class="img-container">
+                      <img class="img-responsive" src="images/clipart/charmeleon.png"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="vendors/fabricjs/fabric.min.js"></script>
+    <script src="js/design.js"></script>
+  </body>
+
+  </html>

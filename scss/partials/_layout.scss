@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  background-color: $color-primary;
+  font-family: 'Lora';
+  font-size: 14px;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 15px;
+	font-family: 'Lora';
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+input:focus {
+  outline: none;
+}
+
+.btn {
+  border-radius: 0 !important;
+}
+
+#header {
+  background-color: transparent;
+}
+
+#header-main {
+  .header-wrap > div {
+    height: auto;
+  }
+  #logo-theme {
+    color: $color-inverse;
+    padding: 30px 0;
+    text-align: center;
+    a {
+      background: none;
+      width: auto;
+      height: auto;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+#pav-mainnav {
+	margin-bottom: 30px;
+  .mainnav-wrap {
+    background-color: $color-info;
+    border: 1px solid $color-inverse;
+    border-radius: $radius;
+  }
+  .navbar {
+    min-height: 0;
+    margin: 0;
+  }
+}
+
+#pav-mainnav .navbar ul.nav {
+  display: flex;
+  width: 100%;
+  & > li {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    & > a {
+      color: $color-primary-darker;
+      text-align: center;
+      &:before {
+        background-color: $color-primary;
+      }
+    }
+    & a:hover,
+    & a:active,
+    & a:focus,
+    &.active a {
+      background-color: $color-primary;
+      color: $color-inverse;
+    }
+    &:first-child > a {
+      border-top-left-radius: $radius;
+      border-bottom-left-radius: $radius;
+    }
+    &:last-child > a {
+      border-top-right-radius: $radius;
+      border-bottom-right-radius: $radius;
+    }
+  }
+}
+
+.box {
+  background-color: $color-inverse;
+  padding: 50px;
+}
+
+@media (min-width: 768px) {
+  .navbar-header {
+    width: 100%;
+  }
+  .navbar-nav > li > a {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+}
+@media (min-width: 992px) {
+	.container {
+		width: 1100px;
+	}
+}

@@ -1,35 +1,10 @@
-$color-primary: #91c9c6;
-$color-primary-light: #c4e4e2;
-$color-default: #f3f5f6;
-body {
-	margin: 0;
-	background-color: $color-primary;
-	font-family: Arial;
-}
-
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-input:focus {
-	outline: none;
-}
-
-.btn {
-	border-radius: 0 !important;
-}
-
 .workbox {
-	width: 980px;
 	margin: 30px auto;
 	background-color: whitesmoke;
 	box-shadow: 0px 0px 5px #777;
 }
 
 .design-area {
-	width: 980px;
 	height: 550px;
 	// background: url('../images/unisex.png') center / auto 100% no-repeat;
 	background-position: center;
