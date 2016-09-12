@@ -370,12 +370,22 @@ TEEDESIGN.Art = function() {
     //   canvas.renderAll();    
     // }, null, {crossOrigin: 'Anonymous'});
 
-    fabric.Image.fromURL(imgUrl, function(oImg) {
-      oImg.left = 10;
-      oImg.top = 30;
-      canvas.add(oImg);
-      $('.canvas-container').trigger('object.added');
-      canvas.deactivateAll().renderAll();
+    // fabric.Image.fromURL(imgUrl, function(oImg) {
+    //   oImg.left = 10;
+    //   oImg.top = 30;
+    //   canvas.add(oImg);
+    //   $('.canvas-container').trigger('object.added');
+    //   canvas.deactivateAll().renderAll();
+    // });
+
+    
+    fabric.Image.fromURL('images/clipart/charmeleon.png', function(image) {
+
+      image.set({
+        left: 10,
+        top: 10
+      });
+      canvas.add(image);
     });
   }
 
